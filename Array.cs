@@ -4,34 +4,47 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ledi_3
+namespace ConsoleApplication1
 {
     class Array
     {
-        //incializa, ordena, y muestra el vector
-        #region atributos
-        private int[] numeros;
-        private int numElementos;
+        //atriubutos
+        private int tam;
         private int min;
         private int max;
-        private int tamaño;
-        #endregion
-        
-        #region metodos
-
-        #region setters & getters
-       
-
-        public int NumElementos
+        private int[] numeros;
+        //Constructor
+        public Array(int tam,int min,int max)
+        {
+            this.tam = tam;
+            this.min = min;
+            this.max = max;
+            numeros = new int[this.tam];
+        }
+        //Getter and setter
+        public int[] Numeros
         {
             get
             {
-                return numElementos;
+                return numeros;
             }
 
             set
             {
-                numElementos = value;
+                numeros = value;
+            }
+        }
+
+        public int Tam
+        {
+            get
+            {
+                return tam;
+            }
+
+            set
+            {
+                tam = value;
             }
         }
 
@@ -61,71 +74,42 @@ namespace Ledi_3
             }
         }
 
-        public int Tamaño
+        //Metodos
+        public void generarVector()
         {
-            get
+            Random rand = new Random();
+            int aleatorio;
+            for (int i = 0; i < numeros.Length; i++)
             {
-                return tamaño;
-            }
-
-            set
-            {
-                tamaño = value;
-            }
+                aleatorio = rand.Next(min, max);
+                numeros[i] = aleatorio;
+            }  
         }
 
-        public int[] Numeros
-        {
-            get
-            {
-                return numeros;
-            }
-
-            set
-            {
-                numeros = value;
-            }
-        }
-
-        #endregion
-
-        #region metodosPropios
-
-        public void generarAleatorios()
-        {
-            Random aleatorios = new Random();
-            Numeros = new int[Tamaño];
-            for (int i = 0; i < Tamaño; i++)
-            {
-                Numeros[i] = aleatorios.Next(Min, Max);
-            }
-        }
         public void ordenarVector()
         {
-            for (int i = 0; i < Tamaño - 1; i++)
-            {
-                for (int j = i + 1; j < Tamaño; j++)
+            int aux;
+            for (int a = 1; a < numeros.Length; a++)
+                for (int b = numeros.Length - 1; b >= a; b--)
                 {
-                    if (Numeros[i] > Numeros[j])
+                    if (numeros[b - 1] > numeros[b])
                     {
-                        int aux = Numeros[i];
-                        Numeros[i] = Numeros[j];
-                        Numeros[j] = aux;
+                        aux = numeros[b - 1];
+                        numeros[b - 1] = numeros[b];
+                        numeros[b] = aux;
                     }
                 }
-            }
+            
         }
-        public void imprimirVector()
+
+        public void mostrarvector()
         {
-            for (int i = 0; i < Tamaño; i++)
+            Console.WriteLine("*******VECTOR*******");
+            for (int i = 0; i < numeros.Length; i++)
             {
-                Console.Write(Numeros[i]+"|");
+                Console.Write(numeros[i]+"|");
             }
+            Console.WriteLine();
         }
-        #endregion
-
-        #endregion
-
-        /*Metodo generar numeros aleatorios que inicialice el vector*/
     }
 }
